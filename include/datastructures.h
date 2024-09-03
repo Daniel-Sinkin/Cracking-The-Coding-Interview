@@ -24,4 +24,17 @@ public:
     void print_vals();
 };
 
+class TreeNode {
+public:
+    int val;
+    std::vector<TreeNode *> children;
+
+    TreeNode(int value, std::vector<TreeNode *> nextNodes = {}) : val(value), children(nextNodes) {}
+};
+
+class Tree {
+public:
+    TreeNode root;
+};
+
 #endif // DATASTRUCTURES_H
