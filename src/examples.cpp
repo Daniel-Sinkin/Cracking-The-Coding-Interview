@@ -4,10 +4,10 @@
 #include <vector>
 
 void example_linked_list() {
-    auto n3 = make_unique<LinkedListNode>(3);
-    auto n2 = make_unique<LinkedListNode>(2, std::move(n3));
-    auto n1 = make_unique<LinkedListNode>(1, std::move(n2));
-    auto n0 = make_unique<LinkedListNode>(0, std::move(n1));
+    unique_ptr<LinkedListNode> n3 = make_unique<LinkedListNode>(3);
+    unique_ptr<LinkedListNode> n2 = make_unique<LinkedListNode>(2, std::move(n3));
+    unique_ptr<LinkedListNode> n1 = make_unique<LinkedListNode>(1, std::move(n2));
+    unique_ptr<LinkedListNode> n0 = make_unique<LinkedListNode>(0, std::move(n1));
 
     LinkedList ll = LinkedList(std::move(n0));
 
