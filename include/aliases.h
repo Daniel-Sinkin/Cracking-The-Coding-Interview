@@ -8,10 +8,8 @@ using std::make_unique;
 using std::unique_ptr;
 using std::vector;
 
-class Node;
+class LinkedListNode;
 class TreeNode;
-
-using UP_Node = std::unique_ptr<Node>;
-using UP_TreeNode = std::unique_ptr<TreeNode>;
+class BTNode;
 
 #endif // ALIASES_H

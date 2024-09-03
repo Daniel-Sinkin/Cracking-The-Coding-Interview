@@ -1,35 +1,29 @@
 #include "datastructures.h"
+#include "aliases.h"
 #include <iostream>
 #include <memory>
 #include <vector>
 
-using std::make_unique;
-using std::unique_ptr;
-using std::vector;
-
-using UP_Node = std::unique_ptr<Node>;
-using UP_TreeNode = std::unique_ptr<TreeNode>;
-
 /*
 Linked List
 */
-Node::Node(int value, UP_Node nextNode)
+LinkedListNode::LinkedListNode(int value, unique_ptr<LinkedListNode> nextNode)
     : val(value), next(std::move(nextNode)) {}
 
-LinkedList::LinkedList(UP_Node rootNode)
+LinkedList::LinkedList(unique_ptr<LinkedListNode> rootNode)
     : root(std::move(rootNode)) {}
 
-Node &LinkedList::get_tail() {
-    Node *curr = this->root.get();
+LinkedListNode &LinkedList::get_tail() {
+    LinkedListNode *curr = this->root.get();
     while (curr->next != nullptr) {
         curr = curr->next.get();
     }
     return *curr;
 }
 
-vector<Node *> LinkedList::to_ptr_list() {
-    vector<Node *> retval;
-    Node *curr = this->root.get();
+vector<LinkedListNode *> LinkedList::to_ptr_list() {
+    vector<LinkedListNode *> retval;
+    LinkedListNode *curr = this->root.get();
     while (curr != nullptr) {
         retval.push_back(curr);
         curr = curr->next.get();
@@ -39,7 +33,7 @@ vector<Node *> LinkedList::to_ptr_list() {
 
 vector<int> LinkedList::to_val_list() {
     vector<int> retval;
-    Node *curr = this->root.get();
+    LinkedListNode *curr = this->root.get();
     while (curr != nullptr) {
         retval.push_back(curr->val);
         curr = curr->next.get();
@@ -48,7 +42,7 @@ vector<int> LinkedList::to_val_list() {
 }
 
 void LinkedList::print_vals() {
-    Node *curr = this->root.get();
+    LinkedListNode *curr = this->root.get();
     while (curr != nullptr) {
         (void)fprintf(stdout, "%d", curr->val);
         curr = curr->next.get();
@@ -65,7 +59,7 @@ Tree
 TreeNode::TreeNode(int value)
     : val(value) {}
 
-TreeNode::TreeNode(int value, vector<UP_TreeNode> nextNodes)
+TreeNode::TreeNode(int value, vector<unique_ptr<TreeNode>> nextNodes)
     : val(value), children(std::move(nextNodes)) {}
 
 void TreeNode::print() {

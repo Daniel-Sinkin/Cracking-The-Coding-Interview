@@ -1,30 +1,28 @@
 #ifndef DATASTRUCTURES_H
 #define DATASTRUCTURES_H
 
+#include <aliases.h>
+
 #include <iostream>
 #include <memory>
 #include <vector>
 
-using std::make_unique;
-using std::unique_ptr;
-using std::vector;
-
-class Node {
+class LinkedListNode {
 public:
     int val;
-    unique_ptr<Node> next;
+    unique_ptr<LinkedListNode> next;
 
-    Node(int value, unique_ptr<Node> nextNode = unique_ptr<Node>());
+    LinkedListNode(int value, unique_ptr<LinkedListNode> nextNode = unique_ptr<LinkedListNode>());
 };
 
 class LinkedList {
 public:
-    unique_ptr<Node> root;
+    unique_ptr<LinkedListNode> root;
 
-    LinkedList(unique_ptr<Node> rootNode);
+    LinkedList(unique_ptr<LinkedListNode> rootNode);
 
-    Node &get_tail();
-    vector<Node *> to_ptr_list();
+    LinkedListNode &get_tail();
+    vector<LinkedListNode *> to_ptr_list();
     vector<int> to_val_list();
     void print_vals();
 };
@@ -41,10 +39,10 @@ public:
 
 class Tree {
 public:
-    unique_ptr<TreeNode> root; // Make root a unique_ptr to allow proper memory management
+    unique_ptr<TreeNode> root;
 
-    Tree(int rootValue);                 // Constructor to initialize the root with a value
-    Tree(unique_ptr<TreeNode> rootNode); // Constructor to initialize the tree with an existing TreeNode
+    Tree(int rootValue);
+    Tree(unique_ptr<TreeNode> rootNode);
 
     void print();
 };
