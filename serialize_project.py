@@ -1,0 +1,109 @@
+import os
+import subprocess
+from pathlib import Path
+
+import pyperclip
+import tiktoken
+
+
+def get_file_content(filepath):
+    """Read the content of a file and return it as a string."""
+    with open(filepath, "r") as file:
+        return file.read()
+
+
+def count_lines(content):
+    """Count the number of lines in the content."""
+    return len(content.splitlines())
+
+
+def generate_serialized_content(project_root):
+    """Generate the serialized content from the source and header files."""
+    output = []
+    file_list = []
+    total_lines = 0
+
+    # Process src folder
+    src_path = project_root.joinpath("src")
+    if src_path.exists() and src_path.is_dir():
+        file_list.append("src/")
+        output.append("###\n# SRC\n###\n")
+        for cpp_file in src_path.glob("*.cpp"):
+            file_list.append(f"    {cpp_file.name}")
+            content = get_file_content(cpp_file)
+            total_lines += count_lines(content)
+            output.append(f"# {cpp_file.name}\n")
+            output.append(content)
+            output.append("\n")
+
+    # Process include folder
+    include_path = project_root.joinpath("include")
+    if include_path.exists() and include_path.is_dir():
+        file_list.append("include/")
+        output.append("###\n# INCLUDE\n###\n")
+        for h_file in include_path.glob("*.h"):
+            file_list.append(f"    {h_file.name}")
+            content = get_file_content(h_file)
+            total_lines += count_lines(content)
+            output.append(f"# {h_file.name}\n")
+            output.append(content)
+            output.append("\n")
+
+    # Process CMakeLists.txt
+    cmake_file = project_root.joinpath("CMakeLists.txt")
+    if cmake_file.exists():
+        file_list.append("CMakeLists.txt")
+        output.append("###\n# CMakeLists.txt\n###\n")
+        content = get_file_content(cmake_file)
+        total_lines += count_lines(content)
+        output.append(content)
+        output.append("\n")
+
+    # Generate project tree
+    output.append("###\n# Project Tree\n###\n")
+    tree_command = ["tree", str(project_root)]
+    project_tree = subprocess.run(tree_command, stdout=subprocess.PIPE, text=True)
+    output.append(project_tree.stdout)
+
+    return "\n".join(output), file_list, total_lines
+
+
+def count_tokens(text):
+    """Count the number of tokens in the text using tiktoken."""
+    # Use 'cl100k_base' for GPT-4 encoding or 'p50k_base' for GPT-3.5
+    encoding = tiktoken.get_encoding("cl100k_base")
+    tokens = encoding.encode(text)
+    return len(tokens)
+
+
+def main():
+    project_root = Path(__file__).parent
+
+    serialized_content, file_list, total_lines = generate_serialized_content(
+        project_root
+    )
+
+    # Copy to clipboard
+    pyperclip.copy(serialized_content)
+    print("Serialized content copied to clipboard.")
+
+    # Print the list of files considered
+    print("\nFiles Considered:")
+    for file in file_list:
+        print(file)
+
+    # Print the total number of lines copied
+    print(f"\nTotal lines copied: {total_lines}")
+
+    # Calculate and print the number of tokens
+    token_count = count_tokens(serialized_content)
+    print(f"Total tokens: {token_count}")
+
+    if token_count > 4000:
+        print(
+            "Warning: The content exceeds 4000 tokens, which may not fit within a single OpenAI GPT-3.5/4 request."
+        )
+
+
+if __name__ == "__main__":
+    main()
