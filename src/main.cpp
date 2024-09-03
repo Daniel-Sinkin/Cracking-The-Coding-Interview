@@ -1,7 +1,9 @@
+#include "aliases.h"
 #include "datastructures.h"
-#include <iostream>
-#include <vector>
+
+extern void run_all_examples();
 
 int main() {
+    run_all_examples();
     return 0;
 }
