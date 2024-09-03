@@ -4,7 +4,7 @@ My personal notes and solutions while working through the 6th Edition of the fam
 # Roadmap
 * [ ] Things to Implement from Scratch
 	* [x] Linked List
-	* [ ] Tree
+	* [x] Tree
 	* [ ] Trie
 	* [ ] Graph
 	* [ ] Stack
