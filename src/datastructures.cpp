@@ -37,11 +37,11 @@ std::vector<int> LinkedList::to_val_list() {
 void LinkedList::print_vals() {
     Node *curr = this->root;
     while (curr != nullptr) {
-        std::cout << curr->val;
+        (void)fprintf(stdout, "%d", curr->val);
         curr = curr->next;
         if (curr != nullptr) {
-            std::cout << " -> ";
+            (void)fprintf(stdout, " -> ");
         }
     }
-    std::cout << std::endl;
+    (void)fprintf(stdout, "\n");
 }
