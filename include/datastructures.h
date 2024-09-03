@@ -47,4 +47,14 @@ public:
     void print();
 };
 
+/*
+Binary Tree
+*/
+// TODO Implement me
+class BTNode {
+public:
+    int val;
+    vector<unique_ptr<BTNode>> children;
+}
+
 #endif // DATASTRUCTURES_H
