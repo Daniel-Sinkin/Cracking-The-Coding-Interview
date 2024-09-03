@@ -1,5 +1,5 @@
 #include "datastructures.h"
-#include <iostream>
+#include <cstdio>
 #include <vector>
 
 void example_linked_list() {
@@ -11,12 +11,10 @@ void example_linked_list() {
 
     ll.print_vals();
 
-    std::cout << ll.get_head()->val << std::endl;
-
-    std::cout << std::endl;
+    (void)printf("%d\n\n", ll.get_tail()->val);
 
     for (Node *x : ll.to_ptr_list()) {
-        std::cout << x->val << std::endl;
+        (void)printf("%d\n", x->val);
     }
 }
 

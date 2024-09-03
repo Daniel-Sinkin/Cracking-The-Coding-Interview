@@ -6,7 +6,7 @@ Node::Node(int value, Node *nextNode) : val(value), next(nextNode) {}
 
 LinkedList::LinkedList(Node *rootNode) : root(rootNode) {}
 
-Node *LinkedList::get_head() {
+Node *LinkedList::get_tail() {
     Node *curr = this->root;
     while (curr->next != nullptr) {
         curr = curr->next;

@@ -18,7 +18,7 @@ public:
 
     LinkedList(Node *rootNode);
 
-    Node *get_head();
+    Node *get_tail();
     std::vector<Node *> to_ptr_list();
     std::vector<int> to_val_list();
     void print_vals();
