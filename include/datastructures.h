@@ -14,7 +14,7 @@ public:
     int val;
     unique_ptr<Node> next;
 
-    Node(int value, unique_ptr<Node> nextNode = nullptr);
+    Node(int value, unique_ptr<Node> nextNode = unique_ptr<Node>());
 };
 
 class LinkedList {
@@ -23,7 +23,7 @@ public:
 
     LinkedList(unique_ptr<Node> rootNode);
 
-    Node *get_tail();
+    Node &get_tail();
     vector<Node *> to_ptr_list();
     vector<int> to_val_list();
     void print_vals();
@@ -41,7 +41,10 @@ public:
 
 class Tree {
 public:
-    TreeNode root;
+    unique_ptr<TreeNode> root; // Make root a unique_ptr to allow proper memory management
+
+    Tree(int rootValue);                 // Constructor to initialize the root with a value
+    Tree(unique_ptr<TreeNode> rootNode); // Constructor to initialize the tree with an existing TreeNode
 
     void print();
 };
