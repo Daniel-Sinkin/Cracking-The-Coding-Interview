@@ -179,30 +179,37 @@ TrieNode::TrieNode() {
 };
 
 void TrieNode::insert(string word) {
+    if (word.empty()) {
+        return;
+    }
+
     int char_idx = word[0] - 'a';
+    if (this->children[char_idx] == nullptr) {
+        this->children[char_idx] = make_unique<TrieNode>();
+    }
     if (word.length() == 1) {
-        this->is_word = true;
+        this->children[char_idx]->is_word = true;
     } else {
-        if (this->children[char_idx] == nullptr) {
-            this->children[char_idx] = unique_ptr<TrieNode>();
-        };
         this->children[char_idx]->insert(word.substr(1));
     }
 }
 
 bool TrieNode::contains_word(string word) const {
-    if (word.length() == 0) {
+    if (word.empty()) {
         return this->is_word;
     }
+
     int char_idx = word[0] - 'a';
+
     if (this->children[char_idx] != nullptr) {
         return this->children[char_idx]->contains_word(word.substr(1));
     }
+
     return false;
 }
 
 bool TrieNode::contains_prefix(string prefix) const {
-    if (prefix.length() == 0) {
+    if (prefix.empty()) {
         return true;
     }
     int char_idx = prefix[0] - 'a';
@@ -212,15 +219,15 @@ bool TrieNode::contains_prefix(string prefix) const {
     return false;
 }
 
-Trie::Trie() : root() {};
+Trie::Trie() : root(make_unique<TrieNode>()) {};
 void Trie::insert(string word) {
     this->root->insert(word);
 };
 
 bool Trie::contains_word(string word) const {
-    return true;
+    return this->root->contains_word(word);
 };
 
 bool Trie::contains_prefix(string prefix) const {
-    return true;
+    return this->root->contains_prefix(prefix);
 };

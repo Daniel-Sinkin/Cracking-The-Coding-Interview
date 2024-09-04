@@ -68,6 +68,23 @@ void example_bst() {
     bst.get_root()->print_post_order();
 }
 
+void example_trie() {
+    Trie trie;
+
+    for (const std::string &word : {"apple", "app", "banana", "bat", "batman"}) {
+        trie.insert(word);
+        (void)fprintf(stdout, "Inserted '%s' into the trie.\n", word.c_str());
+    }
+
+    for (const std::string &word : {"apple", "app", "banana", "bat", "batman", "ban"}) {
+        (void)fprintf(stdout, "Contains '%s': %s\n", word.c_str(), trie.contains_word(word) ? "true" : "false");
+    }
+
+    for (const std::string &prefix : {"app", "ban", "bat", "car"}) {
+        (void)fprintf(stdout, "Prefix '%s': %s\n", prefix.c_str(), trie.contains_prefix(prefix) ? "true" : "false");
+    }
+}
+
 void run_all_examples() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Linked Lists.\n\n");
     example_linked_list();
@@ -78,5 +95,6 @@ void run_all_examples() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Binary Search Tree (BST).\n\n");
     example_bst();
 
-    (void)fprintf(stdout, "\n");
+    (void)fprintf(stdout, "\n\nEXAMPLE: Trie.\n\n");
+    example_trie();
 }
