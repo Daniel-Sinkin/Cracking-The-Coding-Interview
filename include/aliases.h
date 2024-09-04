@@ -1,6 +1,7 @@
 #ifndef ALIASES_H
 #define ALIASES_H
 
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
