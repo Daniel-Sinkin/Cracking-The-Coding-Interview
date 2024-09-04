@@ -1,7 +1,9 @@
 #include "datastructures.h"
 #include "aliases.h"
+
 #include <iostream>
 #include <memory>
+#include <string>
 #include <vector>
 
 /*
@@ -165,3 +167,60 @@ BST::BST(unique_ptr<BSTNode> root) noexcept : root(std::move(root)) {};
 void BST::insert(int new_value) {
     this->root->insert(new_value);
 }
+
+/*
+Trie
+*/
+TrieNode::TrieNode() {
+    for (auto &child : this->children) {
+        child = nullptr;
+    }
+    this->is_word = false;
+};
+
+void TrieNode::insert(string word) {
+    int char_idx = word[0] - 'a';
+    if (word.length() == 1) {
+        this->is_word = true;
+    } else {
+        if (this->children[char_idx] == nullptr) {
+            this->children[char_idx] = unique_ptr<TrieNode>();
+        };
+        this->children[char_idx]->insert(word.substr(1));
+    }
+}
+
+bool TrieNode::contains_word(string word) const {
+    if (word.length() == 0) {
+        return this->is_word;
+    }
+    int char_idx = word[0] - 'a';
+    if (this->children[char_idx] != nullptr) {
+        return this->children[char_idx]->contains_word(word.substr(1));
+    }
+    return false;
+}
+
+bool TrieNode::contains_prefix(string prefix) const {
+    if (prefix.length() == 0) {
+        return true;
+    }
+    int char_idx = prefix[0] - 'a';
+    if (this->children[char_idx] != nullptr) {
+        return this->children[char_idx]->contains_prefix(prefix.substr(1));
+    }
+    return false;
+}
+
+Trie::Trie() : root() {};
+void Trie::insert(string word) {
+    this->root->insert(word);
+};
+
+bool Trie::contains_word(string word) const {
+    return true;
+};
+
+bool Trie::contains_prefix(string prefix) const {
+    return true;
+};

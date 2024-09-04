@@ -5,7 +5,10 @@ My personal notes and solutions while working through the 6th Edition of the fam
 * [ ] Things to Implement from Scratch
 	* [x] Linked List
 	* [x] Tree
-	* [ ] Trie
+	* [x] Binary Tree
+		* [x] BST (Binary Search Tree)
+		* [ ] Min / Max Heap
+	* [x] Trie
 	* [ ] Graph
 	* [ ] Stack
 	* [ ] Queue

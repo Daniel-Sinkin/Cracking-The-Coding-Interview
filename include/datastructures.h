@@ -3,8 +3,10 @@
 
 #include <aliases.h>
 
+#include <bitset>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <vector>
 
 class LinkedListNode {
@@ -102,6 +104,34 @@ public:
     void insert(int new_value);
 
     const BSTNode *get_root() const;
+};
+
+/*
+Trie
+Only implemented for lowercase ascii alphabet
+*/
+class TrieNode { // Not to be confused with a TreeNode
+private:
+    std::array<unique_ptr<TrieNode>, 26> children;
+    bool is_word;
+
+public:
+    TrieNode();
+
+    void insert(string word);
+    bool contains_word(string word) const;
+    bool contains_prefix(string prefix) const;
+};
+
+class Trie {
+public:
+    unique_ptr<TrieNode> root;
+
+    Trie();
+
+    void insert(string word);
+    bool contains_word(string word) const;
+    bool contains_prefix(string prefix) const;
 };
 
 #endif // DATASTRUCTURES_H
