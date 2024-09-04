@@ -45,9 +45,38 @@ void example_tree() {
     }
 }
 
+void example_bst() {
+    BST bst(50);
+    bst.insert(30);
+    bst.insert(70);
+    bst.insert(20);
+    bst.insert(40);
+    bst.insert(60);
+    bst.insert(80);
+    bst.insert(10);
+    bst.insert(35);
+    bst.insert(75);
+    bst.insert(85);
+
+    printf("\nBST In-order Traversal:\n");
+    bst.get_root()->print_in_order();
+
+    printf("\n\nBST Pre-order Traversal:\n");
+    bst.get_root()->print_pre_order();
+
+    printf("\n\nBST Post-order Traversal:\n");
+    bst.get_root()->print_post_order();
+}
+
 void run_all_examples() {
-    (void)fprintf(stdout, "\n\n EXAMPLE: Linked Lists.\n\n");
+    (void)fprintf(stdout, "\n\nEXAMPLE: Linked Lists.\n\n");
     example_linked_list();
-    (void)fprintf(stdout, "\n\n EXAMPLE: Tree\n\n");
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: Tree.\n\n");
     example_tree();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: Binary Search Tree (BST).\n\n");
+    example_bst();
+
+    (void)fprintf(stdout, "\n");
 }

@@ -153,10 +153,10 @@ void BSTNode::print_post_order() const {
     if (this->left != nullptr) {
         this->left->print_post_order();
     }
-    (void)fprintf(stdout, " %d ", this->val);
     if (this->right != nullptr) {
         this->right->print_post_order();
     }
+    (void)fprintf(stdout, " %d ", this->val);
 }
 
 BST::BST(int val) noexcept : root(make_unique<BSTNode>(val)) {};
