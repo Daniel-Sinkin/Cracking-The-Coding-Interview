@@ -134,35 +134,4 @@ public:
     bool contains_prefix(string prefix) const;
 };
 
-/*
-Min-Heap
-*/
-class MinHeapNode {
-private:
-    int val;
-    unique_ptr<MinHeapNode> left;
-    unique_ptr<MinHeapNode> right;
-
-public:
-    int get_val() const { return this->val; }
-    void set_val(int value) { this->val = value; }
-
-    const MinHeapNode *get_left() const { return left.get(); }
-    const MinHeapNode *get_right() const { return right.get(); }
-
-    MinHeapNode(int val, unique_ptr<MinHeapNode> left, unique_ptr<MinHeapNode> right)
-        : val(val), left(std::move(left)), right(std::move(right)) {}
-
-    MinHeapNode(int val) : val(val) {}
-};
-
-class MinHeap {
-private:
-    unique_ptr<MinHeapNode> root;
-
-public:
-    MinHeap(int val) : root(make_unique<MinHeapNode>(val)) {};
-    MinHeap(unique_ptr<MinHeapNode> root) : root(std::move(root));
-};
-
 #endif // DATASTRUCTURES_H

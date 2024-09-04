@@ -231,30 +231,3 @@ bool Trie::contains_word(string word) const {
 bool Trie::contains_prefix(string prefix) const {
     return this->root->contains_prefix(prefix);
 };
-
-/*
-Min-Heap
-class MinHeapNode {
-public:
-    int val;
-    unique_ptr<BTNode> left;
-    unique_ptr<BTNode> right;
-};
-
-class MinHeap {
-public:
-    unique_ptr<BTNode> root;
-
-    MinHeap(int val);
-    MinHeap(unique_ptr<BTNode> root);
-};
-*/
-MinHeapNode::MinHeapNode(
-    int val,
-    unique_ptr<MinHeapNode> left,
-    unique_ptr<MinHeapNode> right)
-    : val(val),
-      left(std::move(left)),
-      right(std::move(right)) {}
-
-MinHeapNode::MinHeapNode(int val) : val(val) {}
