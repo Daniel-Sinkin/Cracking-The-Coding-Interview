@@ -72,8 +72,8 @@ void TreeNode::print() {
 Tree::Tree(int rootValue)
     : root(make_unique<TreeNode>(rootValue)) {}
 
-Tree::Tree(unique_ptr<TreeNode> rootNode)
-    : root(std::move(rootNode)) {}
+Tree::Tree(unique_ptr<TreeNode> root)
+    : root(std::move(root)) {}
 
 void Tree::print() {
     if (root) {
@@ -92,4 +92,28 @@ BTNode::BTNode(
       left(std::move(left)),
       right(std::move(right)) {}
 
-BinaryTree::BinaryTree() : root(unique_ptr<BTNode>()) {};
+BTNode::BTNode(int val) : val(val) {}
+
+BinaryTree::BinaryTree(int val) : root(make_unique<BTNode>(val)) {}
+BinaryTree::BinaryTree(unique_ptr<BTNode> root) : root(std::move(root)) {}
+
+/*
+BST
+*/
+BSTNode::BSTNode(int val, unique_ptr<BSTNode> left, unique_ptr<BSTNode> right) : val(val), left(std::move(left)), right(std::move(right)) {}
+BSTNode::BSTNode(int val) : val(val) {}
+
+const BSTNode *BSTNode::get_left() const {
+    return this->left.get();
+};
+
+const BSTNode *BSTNode::get_right() const {
+    return this->right.get();
+};
+
+BST::BST(int val) noexcept : root(make_unique<BSTNode>(val)) {};
+BST::BST(unique_ptr<BSTNode> root) noexcept : root(std::move(root)) {};
+
+const BSTNode *BST::get_root() const {
+    return this->root.get();
+}

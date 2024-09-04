@@ -57,12 +57,48 @@ public:
     unique_ptr<BTNode> left;
     unique_ptr<BTNode> right;
 
-    BTNode(int val, unique_ptr<BTNode> left = unique_ptr<BTNode>(), unique_ptr<BTNode> right = unique_ptr<BTNode>());
+    BTNode(int val, unique_ptr<BTNode> left, unique_ptr<BTNode> right);
+    BTNode(int val);
 };
 
 class BinaryTree {
 public:
     unique_ptr<BTNode> root;
+
+    BinaryTree(int val);
+    BinaryTree(unique_ptr<BTNode> root);
+};
+
+/*
+BST (Binary Search Tree)
+*/
+class BSTNode {
+private:
+    int val;
+    unique_ptr<BSTNode> left;
+    unique_ptr<BSTNode> right;
+
+public:
+    BSTNode(int val);
+    BSTNode(int val, unique_ptr<BSTNode> left, unique_ptr<BSTNode> right);
+    void insert();
+
+    const BSTNode *get_left() const;
+    const BSTNode *get_right() const;
+};
+
+class BST {
+private:
+    unique_ptr<BSTNode> root;
+
+public:
+    BST(int val) noexcept;
+    BST(unique_ptr<BSTNode> root) noexcept;
+
+    bool is_valid();
+    void insert();
+
+    const BSTNode *get_root() const;
 };
 
 #endif // DATASTRUCTURES_H
