@@ -54,7 +54,15 @@ Binary Tree
 class BTNode {
 public:
     int val;
-    vector<unique_ptr<BTNode>> children;
-}
+    unique_ptr<BTNode> left;
+    unique_ptr<BTNode> right;
+
+    BTNode(int val, unique_ptr<BTNode> left = unique_ptr<BTNode>(), unique_ptr<BTNode> right = unique_ptr<BTNode>());
+};
+
+class BinaryTree {
+public:
+    unique_ptr<BTNode> root;
+};
 
 #endif // DATASTRUCTURES_H

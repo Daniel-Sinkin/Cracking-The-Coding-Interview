@@ -80,3 +80,16 @@ void Tree::print() {
         this->root->print();
     }
 }
+
+/*
+BinaryTree
+*/
+BTNode::BTNode(
+    int val,
+    unique_ptr<BTNode> left,
+    unique_ptr<BTNode> right)
+    : val(val),
+      left(std::move(left)),
+      right(std::move(right)) {}
+
+BinaryTree::BinaryTree() : root(unique_ptr<BTNode>()) {};
