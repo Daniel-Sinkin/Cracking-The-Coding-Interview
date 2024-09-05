@@ -5,17 +5,18 @@ extern void run_all_examples();
 
 void minheap_print(const vector<int> &minheap) {
     int layer = 0;
-    int exponented = 1;
+    int exponented = 2;
 
-    fprintf(stdout, "Root: %d\n", minheap[0]);
+    const int size = minheap.size();
+    fprintf(stdout, "0. Layer: %d\n", minheap[0]);
     bool is_running = true;
     while (is_running) {
         for (int i = 0; i < exponented; i++) {
-            if (exponented + i == minheap.size()) {
+            if (exponented + i - 1 == minheap.size()) {
                 is_running = false;
                 break;
             }
-            (void)fprintf(stdout, "%d. Layer: 2^%d + %d = %d\n", layer + 1, layer, i, minheap[exponented + i]);
+            (void)fprintf(stdout, "%d. Layer: 2^%d + %d = %d\n", layer + 1, layer, i, minheap[exponented + i - 1]);
         }
         exponented *= 2;
         layer += 1;
@@ -23,53 +24,71 @@ void minheap_print(const vector<int> &minheap) {
 }
 
 void minheap_insert(vector<int> &minheap, int value) {
-    (void)fprintf(stdout, "\nInserting %d into the minheap.\n", value);
+    // Put new value at the end
     minheap.push_back(value);
-    int last_element_idx = minheap.size() - 1;
-    if (last_element_idx < 3) {
-        if (minheap[last_element_idx] < minheap[0]) {
-            std::swap(minheap[0], minheap[last_element_idx]);
+    // get index of new node
+    int current_idx = minheap.size() - 1;
+
+    while (current_idx > 0) { // Until we reach the root
+        // For the parent determination, suppose we consider 14, obviously
+        // 8 <= 14 < 16, so it is in the 4. layer (root being 1.), because
+        // it satisfies 2^(i - 1) - 1 <= x < 2^i - 1 for i = 4.
+        // The layer above that one consists of
+        // 3, 4, 5, 6
+        // which correspond to
+        // [7, 8], [9, 10], [11, 12], [13, 14]
+        // in the lowest layer with the map 2j + k, k in {1, 2} so we can
+        // recover j with floor(((2j + k) - 1) / 2).
+        // Sidenode, ofcourse k = 1 denotes left child, k = 2 the right child
+        int parent_idx = (current_idx - 1) / 2;
+        // If we reach a node that preserves the heap property locally then
+        // the entire tree is a heap.
+        if (minheap[current_idx] < minheap[parent_idx]) {
+            std::swap(minheap[current_idx], minheap[parent_idx]);
+            current_idx = parent_idx;
+        } else {
+            break;
         }
+    }
+}
+
+void minheap_remove_min(vector<int> &minheap) {
+    // If we have no elements we can't remove anything.
+    if (minheap.empty()) {
         return;
     }
 
-    int idx = minheap.size() - 1;
-    int idx_tmp = idx;
-    int layer = -1;
-    int layer_idx_start = 1;
-    while (idx_tmp > 1) {
-        idx_tmp >>= 1;
-        layer += 1;
-        layer_idx_start <<= 1;
-    }
-    layer_idx_start >>= 1;
-    int parent_layer_idx_start = layer_idx_start >> 1;
-    int parent_layer_idx_end = layer_idx_start << 1;
-    /*
-    To determine which is is parent node we do the following:
-    suppose we have idx=14 then we can determine that the current layer is
-        8..15
-    and therefore the parent layer is
-        4..7
-    We can split 8..15 into blocks of size 2 to get
-        [8, 9], [10, 11], [12, 13], [14, 15]
-    which correspond to
-        4, 5, 6, 7
-    respectively, the pattern is a floored division by 2:
-        9 = 8 + 0 * 2 + 1 -> 9 // 2 = 4
-        13 = 8 + 2 * 2 + 1 -> 13 // 2 = 4 + 1 * 2 = 6
-    */
+    // Idea is that we "swap" the last entry with the root and then remove the node at the end,
+    // but the swapping itself is wasted work.
+    // We have achied our goal we have either reached the end (current_index == size)
+    // or if we don't change anything in the swapping stages (parent is not bigger than its children)
+    int current_idx = 0;
+    const int size = minheap.size();
 
-    (void)fprintf(stdout, "The inserted value is at the %d. layer\n", layer + 1);
-    (void)fprintf(stdout, "The values that correspond to this are:");
-    for (size_t i = parent_layer_idx_start; i < 2 * parent_layer_idx_start; i++) {
-        (void)fprintf(stdout, "%d <%zu>, ", minheap[i], i);
-    }
-    (void)fprintf(stdout, "\n");
+    while (current_idx < size) {
+        int smallest_idx = current_idx;
 
-    /*
-    TODO: Add the bubbling up of the value.
-    */
+        int left_child_idx = 2 * current_idx + 1;
+        bool left_child_exists = left_child_idx < size;
+
+        int right_child_idx = 2 * current_idx + 2;
+        bool right_child_exists = right_child_idx < size;
+
+        // Check if we want to swap parent with left_child_value
+        if (left_child_exists && minheap[left_child_idx] < minheap[smallest_idx]) {
+            smallest_idx = left_child_idx;
+        }
+        // Check if we want to swap min(parent, left_child_value) with right_child_value
+        if (right_child_exists && minheap[right_child_idx] < minheap[smallest_idx]) {
+            smallest_idx = right_child_idx;
+        }
+        if (smallest_idx == current_idx) {
+            break;
+        }
+
+        std::swap(minheap[current_idx], minheap[smallest_idx]);
+        current_idx = smallest_idx;
+    }
 }
 
 int main() {
@@ -78,9 +97,13 @@ int main() {
     vector<int> minheap = {4, 50, 7, 55, 90, 87};
     minheap_print(minheap);
 
-    int y = 2;
-    minheap_insert(minheap, y);
+    minheap_insert(minheap, 2);
+    minheap_print(minheap);
 
+    minheap_insert(minheap, 3);
+    minheap_print(minheap);
+
+    minheap_insert(minheap, 4);
     minheap_print(minheap);
 
     return 0;
