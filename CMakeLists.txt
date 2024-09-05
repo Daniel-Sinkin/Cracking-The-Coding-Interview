@@ -12,3 +12,15 @@ add_executable(main
 )
 
 target_include_directories(main PRIVATE include)
+
+# Add Clang warning flags 
+target_compile_options(main PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic 
+    -Werror
+    -fdiagnostics-show-option 
+    -Wconversion  # Warn about implicit conversions
+    -Wshadow      # Warn about variable shadowing
+    -Wshorten-64-to-32 # Warn when implicit truncation from 64-bit to 32-bit happens
+)
