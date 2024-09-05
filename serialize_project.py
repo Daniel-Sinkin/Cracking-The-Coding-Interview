@@ -5,6 +5,8 @@ from pathlib import Path
 import pyperclip
 import tiktoken
 
+TOKENLIMIT = 6000
+
 
 def get_file_content(filepath):
     """Read the content of a file and return it as a string."""
@@ -99,9 +101,9 @@ def main():
     token_count = count_tokens(serialized_content)
     print(f"Total tokens: {token_count}")
 
-    if token_count > 4000:
+    if token_count > TOKENLIMIT:
         print(
-            "Warning: The content exceeds 4000 tokens, which may not fit within a single OpenAI GPT-3.5/4 request."
+            f"Warning: The content exceeds {TOKENLIMIT} tokens, which may not fit within a single OpenAI GPT-3.5/4 request."
         )
 
 
