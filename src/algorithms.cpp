@@ -74,3 +74,24 @@ vector<int> sort_merge_not_inplace(const vector<int> &arr) {
 
     return merge_not_inplace(left, right);
 }
+
+size_t binary_search(const std::vector<int> &arr, int target) {
+    size_t left = 0;
+    size_t right = arr.size() - 1;
+
+    while (left <= right) {
+        // This makes taking average more stable against integer overflow as right >= left is guaranteed
+        // Interesting read regarding assembly optimizations of averaging ints:
+        // https://devblogs.microsoft.com/oldnewthing/20220207-00/?p=106223
+        size_t mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            return mid;
+        } else if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return arr.size();
+}

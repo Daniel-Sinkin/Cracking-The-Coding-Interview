@@ -219,7 +219,7 @@ void MinHeap::print() const {
     size_t exponented = 2;
 
     const size_t size = this->data.size();
-    fprintf(stdout, "0. Layer: %d\n", this->data[0]);
+    (void)fprintf(stdout, "0. Layer: %d\n", this->data[0]);
     bool is_running = true;
     while (is_running) {
         for (size_t idx = exponented - 1; idx < 2 * exponented - 1; idx++) {

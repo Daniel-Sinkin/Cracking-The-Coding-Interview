@@ -18,7 +18,7 @@ be more general than just about the book.
 	* [ ] Vector / ArrayLists
 	* [x] BFS
 	* [x] DFS
-	* [ ] Binary Search
+	* [x] Binary Search
 	* [x] Bubble Sort
 	* [x] Heap Sort
 	* [ ] Quick Sort
@@ -86,3 +86,4 @@ be more general than just about the book.
 		* Ranges
 		* What not to use
 			* C Style arrays
+			* C Style strings

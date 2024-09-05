@@ -40,10 +40,10 @@ void example_tree() {
     root->children.push_back(std::move(child3));
 
     for (const unique_ptr<TreeNode> &child : root->children) {
-        printf("Child value: %d\n", child->val);
+        (void)fprintf(stdout, "Child value: %d\n", child->val);
         if (!child->children.empty()) {
             for (const unique_ptr<TreeNode> &cchild : child->children) {
-                printf("\t%d\n", cchild->val);
+                (void)fprintf(stdout, "\t%d\n", cchild->val);
             }
         }
     }
@@ -55,13 +55,13 @@ void example_bst() {
         bst.insert(val);
     }
 
-    printf("\nBST In-order Traversal:\n");
+    (void)fprintf(stdout, "\nBST In-order Traversal:\n");
     bst.get_root()->print_in_order();
 
-    printf("\n\nBST Pre-order Traversal:\n");
+    (void)fprintf(stdout, "\n\nBST Pre-order Traversal:\n");
     bst.get_root()->print_pre_order();
 
-    printf("\n\nBST Post-order Traversal:\n");
+    (void)fprintf(stdout, "\n\nBST Post-order Traversal:\n");
     bst.get_root()->print_post_order();
 }
 
@@ -87,19 +87,19 @@ void example_min_heap() {
 
     for (int value : {20, 5, 15, 10, 2, 25, 30}) {
         heap.insert(value);
-        printf("Inserted %d into the MinHeap.\n", value);
+        (void)fprintf(stdout, "Inserted %d into the MinHeap.\n", value);
     }
 
-    printf("\nHeap structure:\n");
+    (void)fprintf(stdout, "\nHeap structure:\n");
     heap.print();
 
-    printf("\nPopping values from the MinHeap:\n");
+    (void)fprintf(stdout, "\nPopping values from the MinHeap:\n");
     while (true) {
         try {
             int min_value = heap.pop_min();
-            printf("Popped min value: %d\n", min_value);
+            (void)fprintf(stdout, "Popped min value: %d\n", min_value);
         } catch (const std::runtime_error &e) {
-            printf("(Correctly Predicted) Error: %s\n", e.what());
+            (void)fprintf(stdout, "(Correctly Predicted) Error: %s\n", e.what());
             break;
         }
     }
@@ -180,11 +180,11 @@ void example_sort_heap() {
     for (int &num : arr) {
         num = dis(gen);
     }
-    printf("Original array (first 20 elements): ");
+    (void)fprintf(stdout, "Original array (first 20 elements): ");
     for (size_t i = 0; i < 20; ++i) {
-        printf("%d ", arr[i]);
+        (void)fprintf(stdout, "%d ", arr[i]);
     }
-    printf("...\n");
+    (void)fprintf(stdout, "...\n");
 
     auto start = std::chrono::high_resolution_clock::now();
     sort_heap(arr);
@@ -193,47 +193,70 @@ void example_sort_heap() {
     std::chrono::duration<double, std::milli> elapsed = end - start;
     double elapsed_seconds = elapsed.count() / 1000.0;
 
-    printf("Sorted array (first 20 elements): ");
+    (void)fprintf(stdout, "Sorted array (first 20 elements): ");
     for (size_t i = 0; i < 20; ++i) {
-        printf("%d ", arr[i]);
+        (void)fprintf(stdout, "%d ", arr[i]);
     }
-    printf("...\n");
+    (void)fprintf(stdout, "...\n");
 
     double n_log_n = ARRAY_SIZE * std::log2(ARRAY_SIZE);
     double time_per_operation = elapsed_seconds / n_log_n;
 
-    printf("Array size: %d\n", ARRAY_SIZE);
-    printf("Actual time taken: %.6f seconds\n", elapsed_seconds);
-    printf("O(n log n) operations: %.2f\n", n_log_n);
-    printf("Time per O(n log n) operation: %.9f seconds\n", time_per_operation);
+    (void)fprintf(stdout, "Array size: %d\n", ARRAY_SIZE);
+    (void)fprintf(stdout, "Actual time taken: %.6f seconds\n", elapsed_seconds);
+    (void)fprintf(stdout, "O(n log n) operations: %.2f\n", n_log_n);
+    (void)fprintf(stdout, "Time per O(n log n) operation: %.9f seconds\n", time_per_operation);
 
     // Verify if the array is sorted
     bool is_sorted = std::is_sorted(arr.begin(), arr.end());
-    printf("Is the array sorted? %s\n", is_sorted ? "Yes" : "No");
+    (void)fprintf(stdout, "Is the array sorted? %s\n", is_sorted ? "Yes" : "No");
 
     // Predict time for different array sizes
     for (int size : {10000, 100000, 1000000, 10000000}) {
         double predicted_time = (size * std::log2(size)) * time_per_operation;
-        printf("Predicted time for %d elements: %.6f seconds\n", size, predicted_time);
+        (void)fprintf(stdout, "Predicted time for %d elements: %.6f seconds\n", size, predicted_time);
     }
 }
 
 void example_sort_merge_not_inplace() {
     vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
 
-    printf("Original array: ");
+    (void)fprintf(stdout, "Original array: ");
     for (int num : arr) {
-        printf("%d ", num);
+        (void)fprintf(stdout, "%d ", num);
     }
-    printf("\n");
+    (void)fprintf(stdout, "\n");
 
     vector<int> sorted_arr = sort_merge_not_inplace(arr);
 
-    printf("Sorted array: ");
+    (void)fprintf(stdout, "Sorted array: ");
     for (int num : sorted_arr) {
-        printf("%d ", num);
+        (void)fprintf(stdout, "%d ", num);
     }
-    printf("\n");
+    (void)fprintf(stdout, "\n");
+}
+
+void example_binary_search() {
+    std::vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+
+    int val_to_find;
+    size_t found_at;
+
+    val_to_find = 10;
+    found_at = binary_search(arr, val_to_find);
+    if (found_at == arr.size()) {
+        (void)fprintf(stdout, "Couldn't find the value %d.\n", val_to_find);
+    } else {
+        (void)fprintf(stdout, "Found the value at index %zu.\n", found_at);
+    }
+
+    val_to_find = -1;
+    found_at = binary_search(arr, val_to_find);
+    if (found_at == arr.size()) {
+        (void)fprintf(stdout, "Couldn't find the value %d.\n", val_to_find);
+    } else {
+        (void)fprintf(stdout, "Found the value at index %zu.\n", found_at);
+    }
 }
 
 void examples_algorithms() {
@@ -241,5 +264,8 @@ void examples_algorithms() {
     example_sort_heap();
 
     (void)fprintf(stdout, "\n\nEXAMPLE: Merge Sort (Not Inplace).\n\n");
+    example_sort_merge_not_inplace();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: Binary Search.\n\n");
     example_sort_merge_not_inplace();
 }
