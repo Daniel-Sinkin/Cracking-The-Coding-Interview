@@ -1,6 +1,6 @@
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
-#include <aliases.h>
+#include "Constants.h"
 
 void merge_not_inplace(vector<int> &arr1, vector<int> &arr2);
 

@@ -1,7 +1,7 @@
 #ifndef DATASTRUCTURES_H
 #define DATASTRUCTURES_H
 
-#include <aliases.h>
+#include "Constants.h"
 
 #include <bitset>
 #include <format> // For std::format

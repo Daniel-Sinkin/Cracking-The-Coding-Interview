@@ -1,5 +1,5 @@
-#ifndef ALIASES_H
-#define ALIASES_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #include <algorithm>
 #include <array>
@@ -19,4 +19,4 @@ using std::unique_ptr;
 using std::unordered_set;
 using std::vector;
 
-#endif // ALIASES_H
+#endif // CONSTANTS_H
