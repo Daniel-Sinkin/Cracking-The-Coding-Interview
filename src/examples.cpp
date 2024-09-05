@@ -85,6 +85,34 @@ void example_trie() {
     }
 }
 
+void example_min_heap() {
+    MinHeap heap;
+
+    vector<int> values_to_insert = {20, 5, 15, 10, 2, 25, 30};
+
+    // Insert values into the heap
+    for (int value : values_to_insert) {
+        heap.insert(value);
+        printf("Inserted %d into the MinHeap.\n", value);
+    }
+
+    // Print heap structure
+    printf("\nHeap structure:\n");
+    heap.print();
+
+    // Pop the minimum value multiple times
+    printf("\nPopping values from the MinHeap:\n");
+    while (true) {
+        try {
+            int min_value = heap.pop_min();
+            printf("Popped min value: %d\n", min_value);
+        } catch (const std::runtime_error &e) {
+            printf("(Correctly Predicted) Error: %s\n", e.what());
+            break;
+        }
+    }
+}
+
 void run_all_examples() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Linked Lists.\n\n");
     example_linked_list();
@@ -97,4 +125,7 @@ void run_all_examples() {
 
     (void)fprintf(stdout, "\n\nEXAMPLE: Trie.\n\n");
     example_trie();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: MinHeap.\n\n");
+    example_min_heap();
 }

@@ -139,7 +139,7 @@ public:
 
 class Trie {
 private:
-    std::unique_ptr<TrieNode> root;
+    unique_ptr<TrieNode> root;
 
 public:
     Trie() : root(make_unique<TrieNode>()) {}
@@ -147,6 +147,17 @@ public:
     void insert(string word) { this->root->insert(word); }
     bool contains_word(string word) const { return this->root->contains_word(word); }
     bool contains_prefix(string prefix) const { return this->root->contains_prefix(prefix); }
+};
+
+class MinHeap {
+private:
+    vector<int> data;
+
+public:
+    MinHeap() : data() {}
+    void print() const;
+    void insert(int value);
+    int pop_min();
 };
 
 #endif // DATASTRUCTURES_H
