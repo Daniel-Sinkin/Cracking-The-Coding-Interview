@@ -7,15 +7,15 @@ My personal notes and solutions while working through the 6th Edition of the fam
 	* [x] Tree
 	* [x] Binary Tree
 		* [x] BST (Binary Search Tree)
-		* [ ] Min / Max Heap
+		* [x] Min / Max Heap
 	* [x] Trie
 	* [ ] Graph
 	* [ ] Stack
 	* [ ] Queue
-	* [ ] Heap
 	* [ ] Vector / ArrayLists
 	* [ ] BFS
 	* [ ] DFS
 	* [ ] Binary Search
-	* [ ] Merge Sort
+	* [x] Heap Sort
 	* [ ] Quick Sort
+	* [ ] Merge Sort
