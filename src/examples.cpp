@@ -19,6 +19,7 @@ void example_linked_list() {
         (void)printf("%d\n", x->val);
     }
 }
+
 void example_tree() {
     unique_ptr<TreeNode> child1 = make_unique<TreeNode>(1);
     unique_ptr<TreeNode> child2 = make_unique<TreeNode>(2);
@@ -100,7 +101,7 @@ void example_min_heap() {
     printf("\nHeap structure:\n");
     heap.print();
 
-    // Pop the minimum value multiple times
+    // Pop the minimum value until we run out of nodes and throw an exception.
     printf("\nPopping values from the MinHeap:\n");
     while (true) {
         try {
