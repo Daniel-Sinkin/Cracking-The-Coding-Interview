@@ -211,6 +211,9 @@ bool TrieNode::contains_prefix(string prefix) const {
     return false;
 }
 
+/*
+MinHeap
+*/
 void MinHeap::print() const {
     size_t layer = 0;
     size_t exponented = 2;
