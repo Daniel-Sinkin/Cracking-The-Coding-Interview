@@ -170,7 +170,28 @@ void example_sort_heap() {
     }
 }
 
+void example_sort_merge_not_inplace() {
+    vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
+
+    printf("Original array: ");
+    for (int num : arr) {
+        printf("%d ", num);
+    }
+    printf("\n");
+
+    vector<int> sorted_arr = sort_merge_not_inplace(arr);
+
+    printf("Sorted array: ");
+    for (int num : sorted_arr) {
+        printf("%d ", num);
+    }
+    printf("\n");
+}
+
 void examples_algorithms() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Heap Sort.\n\n");
     example_sort_heap();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: Merge Sort (Not Inplace).\n\n");
+    example_sort_merge_not_inplace();
 }
