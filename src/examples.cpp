@@ -51,16 +51,9 @@ void example_tree() {
 
 void example_bst() {
     BST bst(50);
-    bst.insert(30);
-    bst.insert(70);
-    bst.insert(20);
-    bst.insert(40);
-    bst.insert(60);
-    bst.insert(80);
-    bst.insert(10);
-    bst.insert(35);
-    bst.insert(75);
-    bst.insert(85);
+    for (int val : {30, 70, 20, 40, 60, 80, 10, 35, 75, 85}) {
+        bst.insert(val);
+    }
 
     printf("\nBST In-order Traversal:\n");
     bst.get_root()->print_in_order();
@@ -92,19 +85,14 @@ void example_trie() {
 void example_min_heap() {
     MinHeap heap;
 
-    vector<int> values_to_insert = {20, 5, 15, 10, 2, 25, 30};
-
-    // Insert values into the heap
-    for (int value : values_to_insert) {
+    for (int value : {20, 5, 15, 10, 2, 25, 30}) {
         heap.insert(value);
         printf("Inserted %d into the MinHeap.\n", value);
     }
 
-    // Print heap structure
     printf("\nHeap structure:\n");
     heap.print();
 
-    // Pop the minimum value until we run out of nodes and throw an exception.
     printf("\nPopping values from the MinHeap:\n");
     while (true) {
         try {
@@ -138,7 +126,6 @@ void example_sort_heap() {
     const static int HUNDRED_MILLION = 100 * 1000 * 1000;
     const int ARRAY_SIZE = 1000 * 1000;
     vector<int> arr(ARRAY_SIZE);
-    // Generate random numbers
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(-HUNDRED_MILLION, HUNDRED_MILLION);
@@ -151,7 +138,6 @@ void example_sort_heap() {
     }
     printf("...\n");
 
-    // Measure sorting time
     auto start = std::chrono::high_resolution_clock::now();
     sort_heap(arr);
     auto end = std::chrono::high_resolution_clock::now();
@@ -165,7 +151,6 @@ void example_sort_heap() {
     }
     printf("...\n");
 
-    // Calculate and display O(n log n) complexity
     double n_log_n = ARRAY_SIZE * std::log2(ARRAY_SIZE);
     double time_per_operation = elapsed_seconds / n_log_n;
 
