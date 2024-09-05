@@ -24,6 +24,8 @@ be more general than just about the book.
 	* [ ] Quick Sort
 	* [ ] Merge Sort
 	* [ ] Dijkstra's Algorithm
+	* [ ] A* for path finding
+	* [ ] Knapsack Problem (DP)
 * [ ] Stuff to learn
 	* [ ] Dynamic Programming
 	* [ ] BigO Notation
