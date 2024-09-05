@@ -24,7 +24,6 @@ target_compile_options(main PRIVATE
     -Wshadow      # Warn about variable shadowing
     -Wshorten-64-to-32 # Warn when implicit truncation from 64-bit to 32-bit happens
     -Wnull-dereference
-    -Wuseless-cast
     -Wredundant-move
     -Wdouble-promotion
     -Wstrict-aliasing
