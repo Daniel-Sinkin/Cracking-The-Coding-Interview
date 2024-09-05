@@ -4,19 +4,19 @@
 extern void run_all_examples();
 
 void minheap_print(const vector<int> &minheap) {
-    int layer = 0;
-    int exponented = 2;
+    size_t layer = 0;
+    size_t exponented = 2;
 
-    const int size = minheap.size();
+    const size_t size = minheap.size();
     fprintf(stdout, "0. Layer: %d\n", minheap[0]);
     bool is_running = true;
     while (is_running) {
-        for (int i = 0; i < exponented; i++) {
-            if (exponented + i - 1 == minheap.size()) {
+        for (size_t idx = exponented - 1; idx < 2 * exponented - 1; idx++) {
+            if (idx >= size) {
                 is_running = false;
                 break;
             }
-            (void)fprintf(stdout, "%d. Layer: 2^%d + %d = %d\n", layer + 1, layer, i, minheap[exponented + i - 1]);
+            (void)fprintf(stdout, "%zu. Layer: 2^%zu + %zu = %d\n", layer + 1, layer, idx, minheap[idx]);
         }
         exponented *= 2;
         layer += 1;
@@ -27,7 +27,7 @@ void minheap_insert(vector<int> &minheap, int value) {
     // Put new value at the end
     minheap.push_back(value);
     // get index of new node
-    int current_idx = minheap.size() - 1;
+    size_t current_idx = minheap.size() - 1;
 
     while (current_idx > 0) { // Until we reach the root
         // For the parent determination, suppose we consider 14, obviously
@@ -40,7 +40,7 @@ void minheap_insert(vector<int> &minheap, int value) {
         // in the lowest layer with the map 2j + k, k in {1, 2} so we can
         // recover j with floor(((2j + k) - 1) / 2).
         // Sidenode, ofcourse k = 1 denotes left child, k = 2 the right child
-        int parent_idx = (current_idx - 1) / 2;
+        size_t parent_idx = (current_idx - 1) / 2;
         // If we reach a node that preserves the heap property locally then
         // the entire tree is a heap.
         if (minheap[current_idx] < minheap[parent_idx]) {
@@ -62,16 +62,16 @@ void minheap_remove_min(vector<int> &minheap) {
     // but the swapping itself is wasted work.
     // We have achied our goal we have either reached the end (current_index == size)
     // or if we don't change anything in the swapping stages (parent is not bigger than its children)
-    int current_idx = 0;
-    const int size = minheap.size();
+    size_t current_idx = 0;
+    const size_t size = minheap.size();
 
     while (current_idx < size) {
-        int smallest_idx = current_idx;
+        size_t smallest_idx = current_idx;
 
-        int left_child_idx = 2 * current_idx + 1;
+        size_t left_child_idx = 2 * current_idx + 1;
         bool left_child_exists = left_child_idx < size;
 
-        int right_child_idx = 2 * current_idx + 2;
+        size_t right_child_idx = 2 * current_idx + 2;
         bool right_child_exists = right_child_idx < size;
 
         // Check if we want to swap parent with left_child_value

@@ -17,7 +17,7 @@ LinkedList::LinkedList(unique_ptr<LinkedListNode> rootNode)
 
 LinkedListNode &LinkedList::get_tail() {
     LinkedListNode *curr = this->root.get();
-    while (curr->next != nullptr) {
+    while (curr->next) {
         curr = curr->next.get();
     }
     return *curr;
@@ -119,13 +119,13 @@ const BSTNode *BST::get_root() const {
 
 void BSTNode::insert(int new_value) {
     if (new_value <= this->val) {
-        if (this->left != nullptr) {
+        if (!this->left) {
             this->left->insert(new_value);
         } else {
             this->left = make_unique<BSTNode>(new_value);
         }
     } else {
-        if (this->right != nullptr) {
+        if (!this->right) {
             this->right->insert(new_value);
         } else {
             this->right = make_unique<BSTNode>(new_value);
@@ -134,28 +134,28 @@ void BSTNode::insert(int new_value) {
 }
 
 void BSTNode::print_in_order() const {
-    if (this->left != nullptr) {
+    if (this->left) {
         this->left->print_in_order();
     }
     (void)fprintf(stdout, " %d ", this->val);
-    if (this->right != nullptr) {
+    if (this->right) {
         this->right->print_in_order();
     }
 }
 void BSTNode::print_pre_order() const {
     (void)fprintf(stdout, " %d ", this->val);
-    if (this->left != nullptr) {
+    if (this->left) {
         this->left->print_pre_order();
     }
-    if (this->right != nullptr) {
+    if (this->right) {
         this->right->print_pre_order();
     }
 }
 void BSTNode::print_post_order() const {
-    if (this->left != nullptr) {
+    if (this->left) {
         this->left->print_post_order();
     }
-    if (this->right != nullptr) {
+    if (this->right) {
         this->right->print_post_order();
     }
     (void)fprintf(stdout, " %d ", this->val);
@@ -171,20 +171,13 @@ void BST::insert(int new_value) {
 /*
 Trie
 */
-TrieNode::TrieNode() {
-    for (auto &child : this->children) {
-        child = nullptr;
-    }
-    this->is_word = false;
-};
-
 void TrieNode::insert(string word) {
     if (word.empty()) {
         return;
     }
 
-    int char_idx = word[0] - 'a';
-    if (this->children[char_idx] == nullptr) {
+    size_t char_idx = get_char_idx(word[0]);
+    if (!this->children[char_idx]) {
         this->children[char_idx] = make_unique<TrieNode>();
     }
     if (word.length() == 1) {
@@ -199,9 +192,8 @@ bool TrieNode::contains_word(string word) const {
         return this->is_word;
     }
 
-    int char_idx = word[0] - 'a';
-
-    if (this->children[char_idx] != nullptr) {
+    size_t char_idx = this->get_char_idx(word[0]);
+    if (this->children[char_idx]) {
         return this->children[char_idx]->contains_word(word.substr(1));
     }
 
@@ -212,22 +204,9 @@ bool TrieNode::contains_prefix(string prefix) const {
     if (prefix.empty()) {
         return true;
     }
-    int char_idx = prefix[0] - 'a';
-    if (this->children[char_idx] != nullptr) {
+    size_t char_idx = this->get_char_idx(prefix[0]);
+    if (this->children[char_idx]) {
         return this->children[char_idx]->contains_prefix(prefix.substr(1));
     }
     return false;
 }
-
-Trie::Trie() : root(make_unique<TrieNode>()) {};
-void Trie::insert(string word) {
-    this->root->insert(word);
-};
-
-bool Trie::contains_word(string word) const {
-    return this->root->contains_word(word);
-};
-
-bool Trie::contains_prefix(string prefix) const {
-    return this->root->contains_prefix(prefix);
-};
