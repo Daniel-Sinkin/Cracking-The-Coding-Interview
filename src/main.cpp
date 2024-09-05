@@ -1,9 +1,13 @@
 #include "aliases.h"
-#include "datastructures.h"
 
-extern void run_all_examples();
+extern void examples_datastructures();
+extern void examples_algorithms();
 
 int main() {
-    run_all_examples();
+    (void)fprintf(stdout, "\n\nDATASTRUCTURE EXAMPLE\n\n");
+    examples_datastructures();
+
+    (void)fprintf(stdout, "\n\nALGORITHMS EXAMPLE\n\n");
+    examples_algorithms();
     return 0;
 }

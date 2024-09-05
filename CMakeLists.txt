@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(main
     src/main.cpp
     src/datastructures.cpp
+    src/algorithms.cpp
     src/examples.cpp
 )
 
