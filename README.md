@@ -12,14 +12,14 @@ be more general than just about the book.
 		* [x] BST (Binary Search Tree)
 		* [x] Min / Max Heap
 	* [x] Trie
-	* [ ] Graph
+	* [x] Graph
 	* [ ] Stack
 	* [ ] Queue
 	* [ ] Vector / ArrayLists
-	* [ ] BFS
-	* [ ] DFS
+	* [x] BFS
+	* [x] DFS
 	* [ ] Binary Search
-	* [ ] Bubble Sort
+	* [x] Bubble Sort
 	* [x] Heap Sort
 	* [ ] Quick Sort
 	* [x] Merge Sort

@@ -105,6 +105,51 @@ void example_min_heap() {
     }
 }
 
+void example_graph() {
+    Graph graph;
+    // Create 12 nodes
+    for (int i = 0; i < 12; i++) {
+        (void)graph.createNewNode(i);
+    }
+
+    // clang-format off
+    constexpr array<std::pair<size_t, size_t>, 26> edges = {{
+        {0, 1}, {0, 2}, {0, 3}, {1, 4}, {1, 5}, {2, 6}, {2, 7}, {3, 8}, {3, 9},
+        {4, 10}, {5, 11}, {6, 0}, {7, 1}, {8, 2}, {9, 3}, {10, 4}, {11, 5},
+        {6, 8}, {7, 9}, {10, 11}, {0, 10}, {1, 11}, {2, 9}, {3, 8}, {4, 7}, {5, 6}
+    }};
+    // clang-format on
+
+    for (const auto &edge : edges) {
+        size_t idx1 = edge.first;
+        size_t idx2 = edge.second;
+        (void)fprintf(stdout, "Trying to add %zu -> %zu\n", idx1, idx2);
+
+        if (!graph.addEdge(idx1, idx2)) {
+            (void)fprintf(stdout, "Failed to create edge: %zu -> %zu\n", idx1, idx2);
+        }
+    }
+
+    bool found = false;
+    int value_to_find;
+
+    value_to_find = 11;
+    found = graph.findBFS(0, value_to_find);
+    (void)fprintf(stdout, "\nBFS: Looking for %d: %s", value_to_find, found ? "Found" : "Not Found");
+
+    value_to_find = 23;
+    found = graph.findBFS(0, value_to_find);
+    (void)fprintf(stdout, "\nBFS: Looking for %d: %s", value_to_find, found ? "Found" : "Not Found");
+
+    value_to_find = 11;
+    found = graph.findDFS(0, value_to_find);
+    (void)fprintf(stdout, "\nDFS: Looking for %d: %s", value_to_find, found ? "Found" : "Not Found");
+
+    value_to_find = 23;
+    found = graph.findDFS(0, value_to_find);
+    (void)fprintf(stdout, "\nDFS: Looking for %d: %s", value_to_find, found ? "Found" : "Not Found");
+}
+
 void examples_datastructures() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Linked Lists.\n\n");
     example_linked_list();
@@ -120,6 +165,9 @@ void examples_datastructures() {
 
     (void)fprintf(stdout, "\n\nEXAMPLE: MinHeap.\n\n");
     example_min_heap();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: Graph.\n\n");
+    example_graph();
 }
 
 void example_sort_heap() {
