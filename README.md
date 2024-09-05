@@ -16,6 +16,7 @@ My personal notes and solutions while working through the 6th Edition of the fam
 	* [ ] BFS
 	* [ ] DFS
 	* [ ] Binary Search
+	* [ ] Bubble Sort
 	* [x] Heap Sort
 	* [ ] Quick Sort
 	* [ ] Merge Sort
