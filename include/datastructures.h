@@ -160,4 +160,41 @@ public:
     int pop_min();
 };
 
+class GraphNode {
+private:
+    int m_Val;
+    vector<GraphNode *> m_Children;
+
+public:
+    GraphNode(int value) : m_Val(value) {}
+
+    const vector<GraphNode *> &getChildren() const {
+        return m_Children;
+    }
+
+    void appendChild(GraphNode *child) {
+        m_Children.push_back(child);
+    }
+
+    int getValue() const {
+        return m_Val;
+    }
+};
+
+class Graph {
+private:
+    vector<GraphNode *> m_Nodes;
+
+public:
+    Graph() : m_Nodes() {}
+
+    const vector<GraphNode *> &getNodes() const {
+        return m_Nodes;
+    }
+
+    int getValue(size_t node_idx) {
+        return m_Nodes[node_idx]->getValue();
+    }
+}
+
 #endif // DATASTRUCTURES_H

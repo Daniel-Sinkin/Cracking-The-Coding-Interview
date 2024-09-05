@@ -22,7 +22,7 @@ be more general than just about the book.
 	* [ ] Bubble Sort
 	* [x] Heap Sort
 	* [ ] Quick Sort
-	* [ ] Merge Sort
+	* [x] Merge Sort
 	* [ ] Dijkstra's Algorithm
 	* [ ] A* for path finding
 	* [ ] Knapsack Problem (DP)
