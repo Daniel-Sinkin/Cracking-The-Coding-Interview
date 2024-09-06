@@ -24,7 +24,8 @@ be more general than just about the book.
 	* [x] Binary Search
 	* [x] Bubble Sort
 	* [x] Heap Sort
-	* [ ] Quick Sort
+	* [x] Insertion Sort (implemented as internal quicksort helper)
+	* [x] Quick Sort
 	* [x] Merge Sort
 	* [ ] Dijkstra's Algorithm
 	* [ ] A* for path finding

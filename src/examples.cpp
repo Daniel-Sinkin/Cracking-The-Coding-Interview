@@ -2,6 +2,8 @@
 #include "Datastructures.h"
 #include "algorithms.h"
 
+#include "algorithms/quicksort.h"
+
 #include <chrono>
 #include <cstdio>
 #include <random>
@@ -352,6 +354,56 @@ void example_binary_search() {
         (void)fprintf(stdout, "Found the value at index %zu.\n", found_at);
     }
 }
+void example_quick_sort() {
+    const static int HUNDRED_MILLION = 100 * 1000 * 1000;
+    const int ARRAY_SIZE = 1000 * 1000;
+    vector<int> arr(ARRAY_SIZE);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(-HUNDRED_MILLION, HUNDRED_MILLION);
+
+    for (int &num : arr) {
+        num = dis(gen);
+    }
+
+    (void)fprintf(stdout, "Original array (first 20 elements): ");
+    for (size_t i = 0; i < 20; ++i) {
+        (void)fprintf(stdout, "%d ", arr[i]);
+    }
+    (void)fprintf(stdout, "...\n");
+
+    // Timing the quicksort algorithm
+    auto start = std::chrono::high_resolution_clock::now();
+    quicksort(arr, 0, arr.size() - 1);
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+    double elapsed_seconds = elapsed.count() / 1000.0;
+
+    (void)fprintf(stdout, "Sorted array (first 20 elements): ");
+    for (size_t i = 0; i < 20; ++i) {
+        (void)fprintf(stdout, "%d ", arr[i]);
+    }
+    (void)fprintf(stdout, "...\n");
+
+    double n_log_n = ARRAY_SIZE * std::log2(ARRAY_SIZE);
+    double time_per_operation = elapsed_seconds / n_log_n;
+
+    (void)fprintf(stdout, "Array size: %d\n", ARRAY_SIZE);
+    (void)fprintf(stdout, "Actual time taken: %.6f seconds\n", elapsed_seconds);
+    (void)fprintf(stdout, "O(n log n) operations: %.2f\n", n_log_n);
+    (void)fprintf(stdout, "Time per O(n log n) operation: %.9f seconds\n", time_per_operation);
+
+    // Verify if the array is sorted
+    bool is_sorted = std::is_sorted(arr.begin(), arr.end());
+    (void)fprintf(stdout, "Is the array sorted? %s\n", is_sorted ? "Yes" : "No");
+
+    // Predict time for different array sizes
+    for (int size : {10000, 100000, 1000000, 10000000}) {
+        double predicted_time = (size * std::log2(size)) * time_per_operation;
+        (void)fprintf(stdout, "Predicted time for %d elements: %.6f seconds\n", size, predicted_time);
+    }
+}
 
 void examples_algorithms() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Heap Sort.\n\n");
@@ -359,6 +411,9 @@ void examples_algorithms() {
 
     (void)fprintf(stdout, "\n\nEXAMPLE: Merge Sort (Not Inplace).\n\n");
     example_sort_merge_not_inplace();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: Quicksort.\n\n"); // Add quicksort example
+    example_quick_sort();
 
     (void)fprintf(stdout, "\n\nEXAMPLE: Binary Search.\n\n");
     example_binary_search();

@@ -8,8 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Add all source files from the src directory
 add_executable(main
     src/main.cpp
-    src/algorithms.cpp
     src/examples.cpp
+    src/algorithms.cpp
+    src/algorithms/quicksort.cpp
     src/datastructures/binary_search_tree.cpp
     src/datastructures/binary_tree.cpp
     src/datastructures/dynamic_array.cpp
@@ -24,7 +25,14 @@ add_executable(main
 target_include_directories(main PRIVATE 
     include
     include/datastructures
+    include/algorithms
 )
+
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")  
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=undefined")
+
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
 # Checks for unused imports
 set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "include-what-you-use")

@@ -14,5 +14,6 @@ void run_examples() {
 
 int main() {
     run_examples();
-    return 0;
+
+    return EXIT_SUCCESS;
 }
