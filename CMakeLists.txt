@@ -9,19 +9,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(main
     src/main.cpp
     src/algorithms.cpp
-    src/binary_search_tree.cpp
-    src/binary_tree.cpp
-    src/dynamic_array.cpp
     src/examples.cpp
-    src/graph.cpp
-    src/linked_list.cpp
-    src/min_heap.cpp
-    src/tree.cpp
-    src/trie.cpp
+    src/datastructures/binary_search_tree.cpp
+    src/datastructures/binary_tree.cpp
+    src/datastructures/dynamic_array.cpp
+    src/datastructures/graph.cpp
+    src/datastructures/linked_list.cpp
+    src/datastructures/min_heap.cpp
+    src/datastructures/tree.cpp
+    src/datastructures/trie.cpp
 )
 
-# Add include directory for header files
-target_include_directories(main PRIVATE include)
+# Add include directory for header files, including datastructures folder
+target_include_directories(main PRIVATE 
+    include
+    include/datastructures
+)
+
+# Checks for unused imports
+set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "include-what-you-use")
 
 # Set compiler options
 target_compile_options(main PRIVATE
@@ -29,6 +35,7 @@ target_compile_options(main PRIVATE
     -Wextra
     -Wpedantic
     -Werror
+    -Wunused
     -fdiagnostics-show-option
     -Wconversion                    # Warn about implicit conversions
     -Wshadow                        # Warn about variable shadowing

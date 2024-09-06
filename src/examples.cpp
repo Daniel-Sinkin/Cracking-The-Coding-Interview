@@ -1,13 +1,6 @@
 #include "Constants.h"
+#include "Datastructures.h"
 #include "algorithms.h"
-#include "binary_search_tree.h"
-#include "binary_tree.h"
-#include "dynamic_array.h"
-#include "graph.h"
-#include "linked_list.h"
-#include "min_heap.h"
-#include "tree.h"
-#include "trie.h"
 
 #include <chrono>
 #include <cstdio>
