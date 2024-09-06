@@ -4,8 +4,8 @@ DynamicArray::DynamicArray() {
     m_Size = 0;
     m_Capacity = 8;
     (void)fprintf(stdout, "Initializing DynamicArray with capacity %zu\n", m_Capacity);
-    // Using new and delete instead of malloc and free would be better, but this is more barebones
-    // Using static_cast<int*>(...) is generally better than (int *) but doesn't matter here.
+    // Using new and delete instead of malloc and free would be better
+    // Using static_cast<int*>(...) instead of C-style casting (int *)(...) would be better
     m_DataPtr = (int *)malloc(m_Capacity * sizeof(int));
     if (m_DataPtr == nullptr) {
         (void)fprintf(stderr, "Failed to do initial malloc call!\n");
