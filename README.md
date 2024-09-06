@@ -15,7 +15,10 @@ be more general than just about the book.
 	* [x] Graph
 	* [ ] Stack
 	* [ ] Queue
-	* [ ] Vector / ArrayLists
+	* [x] Vector / ArrayLists
+	 	* [x] Constructor, Destructor
+		* [x] push_back, pop_back
+		* [x] insert / delete
 	* [x] BFS
 	* [x] DFS
 	* [x] Binary Search

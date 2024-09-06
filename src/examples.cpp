@@ -149,6 +149,96 @@ void example_graph() {
     found = graph.findDFS(0, value_to_find);
     (void)fprintf(stdout, "\nDFS: Looking for %d: %s", value_to_find, found ? "Found" : "Not Found");
 }
+void example_dynamic_array() {
+    (void)fprintf(stdout, "Creating DynamicArray\n");
+    DynamicArray arr;
+
+    // Filling array with initial values
+    (void)fprintf(stdout, "\nFilling array with initial values\n");
+    for (int i = 0; i < 8; i++) {
+        arr.push_back(10 * (i + 1));
+    }
+
+    (void)fprintf(stdout, "\nPrinting initial values\n");
+    for (size_t i = 0; i < arr.get_size(); i++) {
+        std::cout << arr.get(i) << "\n";
+    }
+
+    // Test inserting at a valid index
+    (void)fprintf(stdout, "\nInserting element at index 4\n");
+    arr.insert(4, 99);
+
+    // Test invalid insert index
+    try {
+        (void)fprintf(stdout, "\nInserting element at invalid index\n");
+        arr.insert(20, 100); // Out of bounds
+    } catch (const std::runtime_error &e) {
+        (void)fprintf(stdout, "Caught expected error: %s\n", e.what());
+    }
+
+    // Trigger capacity expansion
+    (void)fprintf(stdout, "\nAdding more elements to trigger capacity increase\n");
+    for (int i = 8; i < 16; i++) {
+        arr.push_back(-10 * (i + 1));
+    }
+
+    // Print all values after expansion
+    (void)fprintf(stdout, "\nPrinting all values after expansion\n");
+    for (size_t i = 0; i < arr.get_size(); i++) {
+        std::cout << arr.get(i) << "\n";
+    }
+
+    // Getting final capacity and size
+    (void)fprintf(stdout, "\nGetting final capacity and size\n");
+    std::cout << "Final capacity = " << arr.get_capacity()
+              << ", final size = " << arr.get_size() << std::endl;
+
+    // Test pop_back
+    (void)fprintf(stdout, "\nTesting pop_back\n");
+    int popped_value = arr.pop_back();
+    std::cout << "Popped value: " << popped_value << std::endl;
+
+    // Test invalid pop on an empty array
+    (void)fprintf(stdout, "\nTesting pop_back on empty array\n");
+    try {
+        for (size_t i = 0; i < arr.get_size(); i++) {
+            arr.pop_back();
+        }
+        arr.pop_back(); // This should throw an error
+    } catch (const std::runtime_error &e) {
+        (void)fprintf(stdout, "Caught expected error: %s\n", e.what());
+    }
+
+    // Test get_back on non-empty array
+    (void)fprintf(stdout, "\nTesting get_back\n");
+    int back_value = arr.get_back();
+    std::cout << "Back value: " << back_value << std::endl;
+
+    // Test invalid get_back on empty array
+    (void)fprintf(stdout, "\nTesting get_back on empty array\n");
+    try {
+        for (size_t i = 0; i < arr.get_size(); i++) {
+            arr.pop_back();
+        }
+        arr.get_back(); // This should throw an error
+    } catch (const std::runtime_error &e) {
+        (void)fprintf(stdout, "Caught expected error: %s\n", e.what());
+    }
+
+    // Test remove
+    (void)fprintf(stdout, "\nTesting remove at index 2\n");
+    arr.remove(2);
+
+    // Test invalid remove
+    (void)fprintf(stdout, "\nTesting remove at invalid index\n");
+    try {
+        arr.remove(20); // Out of bounds
+    } catch (const std::runtime_error &e) {
+        (void)fprintf(stdout, "Caught expected error: %s\n", e.what());
+    }
+
+    (void)fprintf(stdout, "\nEnd of main function, DynamicArray will be destroyed\n");
+}
 
 void examples_datastructures() {
     (void)fprintf(stdout, "\n\nEXAMPLE: Linked Lists.\n\n");
@@ -168,6 +258,9 @@ void examples_datastructures() {
 
     (void)fprintf(stdout, "\n\nEXAMPLE: Graph.\n\n");
     example_graph();
+
+    (void)fprintf(stdout, "\n\nEXAMPLE: DynamicArray.\n\n");
+    example_dynamic_array();
 }
 
 void example_sort_heap() {
