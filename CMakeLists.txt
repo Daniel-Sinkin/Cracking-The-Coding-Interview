@@ -5,23 +5,13 @@ project(CrackingTheCodingInterview VERSION 1.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Add all source files from the src directory
-add_executable(main
-    src/main.cpp
-    src/examples.cpp
-    src/algorithms.cpp
-    src/algorithms/quicksort.cpp
-    src/datastructures/binary_search_tree.cpp
-    src/datastructures/binary_tree.cpp
-    src/datastructures/dynamic_array.cpp
-    src/datastructures/graph.cpp
-    src/datastructures/linked_list.cpp
-    src/datastructures/min_heap.cpp
-    src/datastructures/tree.cpp
-    src/datastructures/trie.cpp
+file(GLOB SRC_FILES
+    "${CMAKE_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/datastructures/*.cpp"
 )
 
-# Add include directory for header files, including datastructures folder
+add_executable(main ${SRC_FILES})
+
 target_include_directories(main PRIVATE 
     include
     include/datastructures
@@ -34,10 +24,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=undefined"
 
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 
-# Checks for unused imports
 set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "include-what-you-use")
 
-# Set compiler options
 target_compile_options(main PRIVATE
     -Wall
     -Wextra
