@@ -1,7 +1,6 @@
 #ifndef DATASTRUCTURES_H
 #define DATASTRUCTURES_H
 
-// Include all individual data structure headers
 #include "datastructures/binary_search_tree.h"
 #include "datastructures/binary_tree.h"
 #include "datastructures/dynamic_array.h"

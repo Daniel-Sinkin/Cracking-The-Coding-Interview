@@ -1,11 +1,10 @@
-import os
 import subprocess
 from pathlib import Path
 
 import pyperclip
 import tiktoken
 
-TOKENLIMIT = 6000
+TOKENLIMIT = 10_000
 
 
 def get_file_content(filepath):
@@ -19,6 +18,21 @@ def count_lines(content):
     return len(content.splitlines())
 
 
+def process_directory(output, file_list, total_lines, directory, extension, header):
+    """Process a directory, appending its content to the output."""
+    if directory.exists() and directory.is_dir():
+        file_list.append(f"{directory.name}/")
+        output.append(f"###\n# {header}\n###\n")
+        for file in directory.glob(f"*{extension}"):
+            file_list.append(f"    {file.name}")
+            content = get_file_content(file)
+            total_lines += count_lines(content)
+            output.append(f"# {file.name}\n")
+            output.append(content)
+            output.append("\n")
+    return total_lines
+
+
 def generate_serialized_content(project_root):
     """Generate the serialized content from the source and header files."""
     output = []
@@ -27,29 +41,34 @@ def generate_serialized_content(project_root):
 
     # Process src folder
     src_path = project_root.joinpath("src")
-    if src_path.exists() and src_path.is_dir():
-        file_list.append("src/")
-        output.append("###\n# SRC\n###\n")
-        for cpp_file in src_path.glob("*.cpp"):
-            file_list.append(f"    {cpp_file.name}")
-            content = get_file_content(cpp_file)
-            total_lines += count_lines(content)
-            output.append(f"# {cpp_file.name}\n")
-            output.append(content)
-            output.append("\n")
+    total_lines = process_directory(
+        output, file_list, total_lines, src_path, ".cpp", "SRC"
+    )
 
     # Process include folder
     include_path = project_root.joinpath("include")
-    if include_path.exists() and include_path.is_dir():
-        file_list.append("include/")
-        output.append("###\n# INCLUDE\n###\n")
-        for h_file in include_path.glob("*.h"):
-            file_list.append(f"    {h_file.name}")
-            content = get_file_content(h_file)
-            total_lines += count_lines(content)
-            output.append(f"# {h_file.name}\n")
-            output.append(content)
-            output.append("\n")
+    total_lines = process_directory(
+        output, file_list, total_lines, include_path, ".h", "INCLUDE"
+    )
+
+    # Process src/datastructures folder
+    datastructures_path = src_path.joinpath("datastructures")
+    total_lines = process_directory(
+        output,
+        file_list,
+        total_lines,
+        datastructures_path,
+        ".cpp",
+        "SRC/DATASTRUCTURES",
+    )
+    total_lines = process_directory(
+        output,
+        file_list,
+        total_lines,
+        datastructures_path,
+        ".h",
+        "INCLUDE/DATASTRUCTURES",
+    )
 
     # Process CMakeLists.txt
     cmake_file = project_root.joinpath("CMakeLists.txt")
@@ -79,7 +98,8 @@ def count_tokens(text):
 
 
 def main():
-    project_root = Path(__file__).parent
+    # Assuming this script is in the 'util' folder, derive the root directory
+    project_root = Path(__file__).resolve().parent.parent
 
     serialized_content, file_list, total_lines = generate_serialized_content(
         project_root
