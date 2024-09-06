@@ -100,3 +100,7 @@ be more general than just about the book.
 		* What not to use
 			* C Style arrays
 			* C Style strings
+
+# References
+* CppCon
+ * http://youtube.com/watch?v=7Qgd9B1KuMQ
