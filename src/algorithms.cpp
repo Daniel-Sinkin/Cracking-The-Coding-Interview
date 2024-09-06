@@ -1,5 +1,4 @@
 #include "Constants.h"
-#include "datastructures.h"
 
 #include "min_heap.h"
 
@@ -78,6 +77,12 @@ vector<int> sort_merge_not_inplace(const vector<int> &arr) {
 }
 
 size_t binary_search(const std::vector<int> &arr, int target) {
+    const size_t TARGET_NOT_FOUND = arr.size();
+
+    if (arr.empty()) {
+        return TARGET_NOT_FOUND;
+    }
+
     size_t left = 0;
     size_t right = arr.size() - 1;
 
@@ -91,9 +96,12 @@ size_t binary_search(const std::vector<int> &arr, int target) {
         } else if (arr[mid] < target) {
             left = mid + 1;
         } else {
+            if (mid == 0) {
+                break;
+            }
             right = mid - 1;
         }
     }
 
-    return arr.size();
+    return TARGET_NOT_FOUND;
 }

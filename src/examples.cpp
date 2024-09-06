@@ -1,9 +1,12 @@
 #include "Constants.h"
 #include "algorithms.h"
-#include "datastructures.h"
+#include "binary_search_tree.h"
+#include "binary_tree.h"
 #include "dynamic_array.h"
 #include "graph.h"
+#include "linked_list.h"
 #include "min_heap.h"
+#include "tree.h"
 #include "trie.h"
 
 #include <chrono>
@@ -21,10 +24,10 @@ void example_linked_list() {
 
     ll.print_vals();
 
-    (void)printf("%d\n\n", ll.get_tail().val);
+    (void)fprintf(stdout, "%d\n\n", ll.get_tail().val);
 
     for (LinkedListNode *x : ll.to_ptr_list()) {
-        (void)printf("%d\n", x->val);
+        (void)fprintf(stdout, "%d\n", x->val);
     }
 }
 
@@ -154,6 +157,7 @@ void example_graph() {
     found = graph.findDFS(0, value_to_find);
     (void)fprintf(stdout, "\nDFS: Looking for %d: %s", value_to_find, found ? "Found" : "Not Found");
 }
+
 void example_dynamic_array() {
     (void)fprintf(stdout, "Creating DynamicArray\n");
     DynamicArray arr;
@@ -166,7 +170,7 @@ void example_dynamic_array() {
 
     (void)fprintf(stdout, "\nPrinting initial values\n");
     for (size_t i = 0; i < arr.get_size(); i++) {
-        std::cout << arr.get(i) << "\n";
+        (void)fprintf(stdout, "%d\n", arr.get(i));
     }
 
     // Test inserting at a valid index
@@ -190,18 +194,17 @@ void example_dynamic_array() {
     // Print all values after expansion
     (void)fprintf(stdout, "\nPrinting all values after expansion\n");
     for (size_t i = 0; i < arr.get_size(); i++) {
-        std::cout << arr.get(i) << "\n";
+        (void)fprintf(stdout, "%d\n", arr.get(i));
     }
 
     // Getting final capacity and size
     (void)fprintf(stdout, "\nGetting final capacity and size\n");
-    std::cout << "Final capacity = " << arr.get_capacity()
-              << ", final size = " << arr.get_size() << std::endl;
+    (void)fprintf(stdout, "Final capacity = %zu, final size = %zu\n", arr.get_capacity(), arr.get_size());
 
     // Test pop_back
     (void)fprintf(stdout, "\nTesting pop_back\n");
     int popped_value = arr.pop_back();
-    std::cout << "Popped value: " << popped_value << std::endl;
+    (void)fprintf(stdout, "Popped value: %d\n", popped_value);
 
     // Test invalid pop on an empty array
     (void)fprintf(stdout, "\nTesting pop_back on empty array\n");
@@ -217,7 +220,7 @@ void example_dynamic_array() {
     // Test get_back on non-empty array
     (void)fprintf(stdout, "\nTesting get_back\n");
     int back_value = arr.get_back();
-    std::cout << "Back value: " << back_value << std::endl;
+    (void)fprintf(stdout, "Back value: %d\n", back_value);
 
     // Test invalid get_back on empty array
     (void)fprintf(stdout, "\nTesting get_back on empty array\n");
@@ -365,5 +368,5 @@ void examples_algorithms() {
     example_sort_merge_not_inplace();
 
     (void)fprintf(stdout, "\n\nEXAMPLE: Binary Search.\n\n");
-    example_sort_merge_not_inplace();
+    example_binary_search();
 }
