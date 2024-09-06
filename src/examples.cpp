@@ -1,6 +1,11 @@
 #include "Constants.h"
 #include "algorithms.h"
 #include "datastructures.h"
+#include "dynamic_array.h"
+#include "graph.h"
+#include "min_heap.h"
+#include "trie.h"
+
 #include <chrono>
 #include <cstdio>
 #include <random>

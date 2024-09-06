@@ -5,15 +5,22 @@ project(CrackingTheCodingInterview VERSION 1.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Add all source files from src directory
 add_executable(main
     src/main.cpp
     src/datastructures.cpp
     src/algorithms.cpp
     src/examples.cpp
+    src/dynamic_array.cpp
+    src/graph.cpp
+    src/min_heap.cpp
+    src/trie.cpp
 )
 
+# Add include directory for header files
 target_include_directories(main PRIVATE include)
 
+# Set compiler options
 target_compile_options(main PRIVATE
     -Wall
     -Wextra

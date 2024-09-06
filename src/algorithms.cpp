@@ -1,6 +1,8 @@
 #include "Constants.h"
 #include "datastructures.h"
 
+#include "min_heap.h"
+
 void sort_heap(vector<int> &arr) {
     MinHeap heap;
     for (int val : arr) {
