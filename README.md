@@ -16,8 +16,8 @@ be more general than just about the book.
 	* [ ] Stack
 	* [ ] Queue
 	* [x] Vector / ArrayLists
-	 	* [x] Constructor, Destructor
-		* [x] push_back, pop_back
+	 * [x] Constructor with malloc, Destructor
+		* [x] push_back with realloc, pop_back
 		* [x] insert / delete
 	* [x] BFS
 	* [x] DFS
