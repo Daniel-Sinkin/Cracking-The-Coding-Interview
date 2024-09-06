@@ -1,8 +1,7 @@
 #include "Constants.h"
 #include "Datastructures.h"
-#include "algorithms.h"
-
-#include "algorithms/quicksort.h"
+#include "misc.h"
+#include "sorting.h"
 
 #include <chrono>
 #include <cstdio>
@@ -283,7 +282,7 @@ void example_sort_heap() {
     (void)fprintf(stdout, "...\n");
 
     auto start = std::chrono::high_resolution_clock::now();
-    sort_heap(arr);
+    heapsort(arr);
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double, std::milli> elapsed = end - start;

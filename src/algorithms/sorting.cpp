@@ -2,7 +2,7 @@
 
 #include "min_heap.h"
 
-void sort_heap(vector<int> &arr) {
+void heapsort(vector<int> &arr) {
     MinHeap heap;
     for (int val : arr) {
         heap.insert(val);
@@ -13,7 +13,7 @@ void sort_heap(vector<int> &arr) {
     }
 }
 
-void sort_bubble(vector<int> &arr) {
+void bubblesort(vector<int> &arr) {
     for (size_t outer = 0; outer < arr.size() - 1; outer++) {
         for (size_t inner = 0; inner < arr.size() - 1 - outer; inner++) {
             if (arr[inner] > arr[inner + 1]) {
@@ -23,7 +23,8 @@ void sort_bubble(vector<int> &arr) {
     }
 }
 
-vector<int> merge_not_inplace(const vector<int> &arr1, const vector<int> &arr2) {
+namespace mergesort_helpers {
+vector<int> merge(const vector<int> &arr1, const vector<int> &arr2) {
     // Note that this is the BAD version of the merge helper function as it
     // allocates new memory, the GOOD basic version is doing everything inplace
     // on the original array.
@@ -59,6 +60,7 @@ vector<int> merge_not_inplace(const vector<int> &arr1, const vector<int> &arr2) 
     }
     return arr_merged;
 }
+} // namespace mergesort_helpers
 
 vector<int> sort_merge_not_inplace(const vector<int> &arr) {
     if (arr.size() <= 1) {
@@ -73,35 +75,58 @@ vector<int> sort_merge_not_inplace(const vector<int> &arr) {
     left = sort_merge_not_inplace(left);
     right = sort_merge_not_inplace(right);
 
-    return merge_not_inplace(left, right);
+    return mergesort_helpers::merge(left, right);
 }
 
-size_t binary_search(const std::vector<int> &arr, int target) {
-    const size_t TARGET_NOT_FOUND = arr.size();
-
-    if (arr.empty()) {
-        return TARGET_NOT_FOUND;
-    }
-
-    size_t left = 0;
-    size_t right = arr.size() - 1;
+namespace quicksort_helpers {
+size_t partition(std::vector<int> &arr, size_t left, size_t right) {
+    size_t pivot_idx = left + (right - left) / 2;
+    int pivot = arr[pivot_idx];
 
     while (left <= right) {
-        // This makes taking average more stable against integer overflow as right >= left is guaranteed
-        // Interesting read regarding assembly optimizations of averaging ints:
-        // https://devblogs.microsoft.com/oldnewthing/20220207-00/?p=106223
-        size_t mid = left + (right - left) / 2;
-        if (arr[mid] == target) {
-            return mid;
-        } else if (arr[mid] < target) {
-            left = mid + 1;
-        } else {
-            if (mid == 0) {
-                break;
-            }
-            right = mid - 1;
+        while (arr[left] < pivot) {
+            left++;
+        }
+
+        while (arr[right] > pivot) {
+            right--;
+        }
+
+        if (left <= right) {
+            std::swap(arr[left], arr[right]);
+            left++;
+            right--;
         }
     }
+    return left;
+}
 
-    return TARGET_NOT_FOUND;
+void sort_insertion(vector<int> &arr, size_t left, size_t right) {
+    for (size_t i = left + 1; i <= right; ++i) {
+        int key = arr[i];
+        size_t j = i;
+        while (j > left && arr[j - 1] > key) {
+            arr[j] = arr[j - 1];
+            j--;
+        }
+        arr[j] = key;
+    }
+}
+} // namespace quicksort_helpers
+
+void quicksort(std::vector<int> &arr, size_t left, size_t right) {
+    const size_t SMALL_ARRAY_THRESHOLD = 16; // If array length below that its faster to use insertion sort
+
+    if (right <= left || right - left < SMALL_ARRAY_THRESHOLD) {
+        quicksort_helpers::sort_insertion(arr, left, right);
+        return;
+    }
+
+    size_t idx = quicksort_helpers::partition(arr, left, right);
+    if (left < idx - 1) {
+        quicksort(arr, left, idx - 1);
+    }
+    if (idx < right) {
+        quicksort(arr, idx, right);
+    }
 }

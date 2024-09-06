@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 file(GLOB SRC_FILES
     "${CMAKE_SOURCE_DIR}/src/*.cpp"
     "${CMAKE_SOURCE_DIR}/src/datastructures/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/algorithms/*.cpp"
 )
 
 add_executable(main ${SRC_FILES})
