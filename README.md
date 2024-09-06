@@ -66,14 +66,23 @@ be more general than just about the book.
 		* What is it and why is it useful
 		* How to use it
 	* [ ] Distributed Computing
+* [ ] Advanced Programming Topics
+	* [ ] Distributed Systems
+	* [ ] Low-Latency Programming & Optimizations
+		* Memory Management: Learn how to optimize cache usage, avoid heap allocations in performance-critical sections, and handle memory allocation/deallocation efficiently (e.g., avoiding memory fragmentation).
+		* Latency Sensitivity: Understanding and measuring the impact of data movement (e.g., cache misses, context switches) and I/O latencies is crucial. For example, dive into lock-free or wait-free programming.
+		* Real-Time Systems: Hedge funds often deal with real-time market data processing, so familiarizing yourself with real-time systems and latency-critical operations might help.
+		* High-Performance Libraries: Learn the inner workings of libraries used in performance-critical contexts (e.g., Boost, Intel TBB, CUDA, etc.).
 * [ ] C++ Specifics
-	* [x] How to Test
-	* [x] How to Benchmark
-	* [ ] How to write multithreaded Code
-	* [ ] How to write in an OOP style
+	* [x] Testing
+	* [x] Benchmarking
+	* [ ] Profiling
+	* [ ] Multithreaded Code
+	* [ ] OOP Style
 		* Virtual Functions
 		* Subclassing
 		* Polymorphism
+	* [ ] Inline Assembly, in particular for SIMD intrinsics
 	* Coding best practices, learn about common pitfalls
 	 	* When and how to use const
 			* (!!) constexpr
