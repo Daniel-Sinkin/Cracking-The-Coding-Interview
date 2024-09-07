@@ -7,7 +7,7 @@ TreeNode::TreeNode(int value, vector<unique_ptr<TreeNode>> nextNodes)
     : val(value), children(std::move(nextNodes)) {}
 
 void TreeNode::print() {
-    (void)fprintf(stdout, "%d", this->val);
+    fprintf(stdout, "%d", this->val);
     for (auto &x : this->children) {
         x->print();
     }

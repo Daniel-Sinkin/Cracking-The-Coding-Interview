@@ -35,13 +35,13 @@ void BSTNode::print_in_order() const {
     if (this->left) {
         this->left->print_in_order();
     }
-    (void)fprintf(stdout, " %d ", this->val);
+    fprintf(stdout, " %d ", this->val);
     if (this->right) {
         this->right->print_in_order();
     }
 }
 void BSTNode::print_pre_order() const {
-    (void)fprintf(stdout, " %d ", this->val);
+    fprintf(stdout, " %d ", this->val);
     if (this->left) {
         this->left->print_pre_order();
     }
@@ -56,7 +56,7 @@ void BSTNode::print_post_order() const {
     if (this->right) {
         this->right->print_post_order();
     }
-    (void)fprintf(stdout, " %d ", this->val);
+    fprintf(stdout, " %d ", this->val);
 }
 
 BST::BST(int val) noexcept : root(make_unique<BSTNode>(val)) {};

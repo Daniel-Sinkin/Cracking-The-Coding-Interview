@@ -37,11 +37,11 @@ vector<int> LinkedList::to_val_list() {
 void LinkedList::print_vals() {
     LinkedListNode *curr = this->root.get();
     while (curr != nullptr) {
-        (void)fprintf(stdout, "%d", curr->val);
+        fprintf(stdout, "%d", curr->val);
         curr = curr->next.get();
         if (curr != nullptr) {
-            (void)fprintf(stdout, " -> ");
+            fprintf(stdout, " -> ");
         }
     }
-    (void)fprintf(stdout, "\n");
+    fprintf(stdout, "\n");
 }

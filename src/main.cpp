@@ -6,9 +6,9 @@ extern void examples_datastructures();
 extern void examples_algorithms();
 
 void run_examples() {
-    (void)fprintf(stdout, "\n\nDATASTRUCTURE EXAMPLE\n\n");
+    fprintf(stdout, "\n\nDATASTRUCTURE EXAMPLE\n\n");
     examples_datastructures();
-    (void)fprintf(stdout, "\n\nALGORITHMS EXAMPLE\n\n");
+    fprintf(stdout, "\n\nALGORITHMS EXAMPLE\n\n");
     examples_algorithms();
 }
 

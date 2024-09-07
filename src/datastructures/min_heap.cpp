@@ -5,7 +5,7 @@ void MinHeap::print() const {
     size_t exponented = 2;
 
     const size_t size = this->data.size();
-    (void)fprintf(stdout, "0. Layer: %d\n", this->data[0]);
+    fprintf(stdout, "0. Layer: %d\n", this->data[0]);
     bool is_running = true;
     while (is_running) {
         for (size_t idx = exponented - 1; idx < 2 * exponented - 1; idx++) {
@@ -13,7 +13,7 @@ void MinHeap::print() const {
                 is_running = false;
                 break;
             }
-            (void)fprintf(stdout, "%zu. Layer: 2^%zu + %zu = %d\n", layer + 1, layer, idx, this->data[idx]);
+            fprintf(stdout, "%zu. Layer: 2^%zu + %zu = %d\n", layer + 1, layer, idx, this->data[idx]);
         }
         exponented *= 2;
         layer += 1;
